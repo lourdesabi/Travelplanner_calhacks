@@ -27,8 +27,7 @@ def create_text_chat(text: str, end_session: bool = False) -> ChatMessage:
 
 client = OpenAI(
     base_url='https://api.asi1.ai/v1',
-    api_key='',
-)
+    api_key='',)
 
 agent = Agent()
 protocol = Protocol(spec=chat_protocol_spec)
