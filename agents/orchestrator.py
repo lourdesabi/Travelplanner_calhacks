@@ -23,9 +23,9 @@ class OrchestratorAgent:
         if not start_date:
             start_date = datetime.now()
         
-        print("="*70)
+        print("-"*50)
         print("🎯 ORCHESTRATOR: Starting Complete Trip Planning")
-        print("="*70)
+        print("-"*50)
         print(f"🛫 Origin: {origin}")
         print(f"📍 Destination: {destination}")
         print(f"📅 Departure: {departure_date}")
@@ -34,7 +34,7 @@ class OrchestratorAgent:
         print(f"📅 Duration: {days} days")
         print(f"💰 Budget: ${budget} per person")
         print(f"🎯 Interests: {interests}")
-        print("="*70)
+        print("-"*50)
         print()
         
         # AGENT 1: Links Agent
@@ -115,35 +115,29 @@ class OrchestratorAgent:
         print("└" + "─"*68 + "┘")
         print()
         
-        complete_plan = f"""
-{'='*70}
-✈️ YOUR COMPLETE TRAVEL PLAN
-{'='*70}
+        # CLEAN OUTPUT - NO UGLY DASHES!
+        complete_plan = f"""✈️ YOUR COMPLETE TRAVEL PLAN
 
 {booking_links}
 
-🛫 FLIGHT RECOMMENDATIONS
-{'='*70}
+✈️ FLIGHT RECOMMENDATIONS
+
 {flights}
 
-{'='*70}
 🌤️ WEATHER FORECAST
-{'='*70}
+
 {weather_summary}
 
-{'='*70}
 🗺️ DAILY ITINERARY
-{'='*70}
+
 {itinerary}
 
-{'='*70}
 ✅ Complete Plan Created by Multi-Agent System:
    🔗 Links Agent - Direct booking links
-   ✈️  Flight Agent - Flight search & recommendations
-   🌤️  Weather Agent - Forecast & packing tips
-   🗺️  Travel Agent - Daily itinerary planning
+   ✈️ Flight Agent - Flight search & recommendations
+   🌤️ Weather Agent - Forecast & packing tips
+   🗺️ Travel Agent - Daily itinerary planning
    🎯 Orchestrator - Coordination & integration
-{'='*70}
 """
         
         print("✅ ORCHESTRATOR: Complete trip planning finished!")
@@ -154,9 +148,9 @@ class OrchestratorAgent:
 # Test
 if __name__ == "__main__":
     print()
-    print("="*70)
+    print("-"*50)
     print("🧪 TESTING COMPLETE ORCHESTRATOR WITH FLIGHTS")
-    print("="*70)
+    print("-"*50)
     print()
     
     try:
@@ -174,16 +168,16 @@ if __name__ == "__main__":
         )
         
         print()
-        print("="*70)
+        print("-"*50)
         print("📄 COMPLETE TRAVEL PLAN")
-        print("="*70)
+        print("-"*50)
         print()
         print(plan)
         
         print()
-        print("="*70)
+        print("-"*50)
         print("✅ ORCHESTRATOR TEST COMPLETED!")
-        print("="*70)
+        print("-"*50)
         
     except Exception as e:
         print(f"❌ Error: {e}")
