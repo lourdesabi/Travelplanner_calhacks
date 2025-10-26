@@ -1,0 +1,12 @@
+
+services:
+  - type: web
+    name: ai-travel-planner
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python api.py
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENWEATHERMAP_API_KEY
+        sync: false

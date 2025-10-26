@@ -1,6 +1,9 @@
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import sys
+import os
+from datetime import datetime
+
 sys.path.append('agents')
 
 from orchestrator import OrchestratorAgent
@@ -36,7 +39,6 @@ def plan_trip():
         interests = data.get('interests', 'architecture, food, beaches, culture')
         
         # Calculate days
-        from datetime import datetime
         start = datetime.strptime(departure_date, '%Y-%m-%d')
         end = datetime.strptime(return_date, '%Y-%m-%d')
         days = (end - start).days
@@ -87,4 +89,7 @@ if __name__ == '__main__':
     print("🚀 Starting Travel Planner API Server...")
     print("📍 Frontend: http://localhost:5000")
     print("🔌 API: http://localhost:5000/api/plan-trip")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    
+    # Get port from environment variable (for deployment) or use 5000 for local
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=False)
