@@ -5,7 +5,7 @@ set -o errexit
 rm -rf .venv
 
 # Upgrade pip
-pip install --upgrade pip
+pip install --break-system-packages --upgrade pip
 
 # Force reinstall all packages
-pip install --force-reinstall --no-cache-dir -r requirements.txt
+pip install --break-system-packages --force-reinstall --no-cache-dir -r requirements.txt
