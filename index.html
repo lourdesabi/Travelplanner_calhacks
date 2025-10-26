@@ -728,7 +728,7 @@
             // STEP 1: REMOVE BOOKING LINK SECTIONS
             html = html.replace(/✈️\s*YOUR COMPLETE TRAVEL PLAN[\s\S]*?(?=🌤️|🗺️|✈️|🎯|#|$)/gi, '');
             html = html.replace(/🔗\s*YOUR BOOKING LINKS[\s\S]*?(?=🌤️|🗺️|✈️|🎯|#|$)/gi, '');
-            html = html.replace(/✈️\s*FLIGHT BOOKING[\s\S]*?(?=🏨|🌤️|🗺️|✈️\s*RECOMMENDED|🎯\s*RECOMMENDED|#|$)/gi, '');
+            html = html.replace(/✈️\s*FLIGHT BOOKING[\s\S]*?(?=🏨|🌤️|🗺️|✈️\s*RECOMMENDED|✈️\s*RECOMMENDED|#|$)/gi, '');
             html = html.replace(/🏨\s*HOTEL BOOKING[\s\S]*?(?=🎯|🌤️|🗺️|✈️|#|$)/gi, '');
             html = html.replace(/🎯\s*ACTIVITIES & TOURS[\s\S]*?(?=🍴|🌤️|🗺️|✈️|#|$)/gi, '');
             html = html.replace(/🍴\s*RESTAURANT RESERVATIONS[\s\S]*?(?=🌤️|🗺️|✈️|💡|#|$)/gi, '');
