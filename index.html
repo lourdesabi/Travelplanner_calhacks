@@ -457,8 +457,8 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>✈️ AI TRAVEL PLANNER</h1>
-            <p>Powered by Multi-Agent AI System</p>
+            <h1>Itinerseek</h1>
+            <p>Made by Bryan, Lourdes, Valerie</p>
         </div>
 
         <!-- AI Agent Badges -->
@@ -526,7 +526,7 @@
                     </div>
 
                     <button type="submit" class="generate-btn" id="generateBtn">
-                        🚀 Generate My Complete Travel Plan
+                         Generate My Travel Plan
                     </button>
                 </form>
             </div>
@@ -718,11 +718,11 @@
             // This must happen FIRST before any removals
             html = html.replace(/🌤️\s*WEATHER FORECAST/gi, '# 🌤️ WEATHER FORECAST');
             html = html.replace(/🗺️\s*DAILY ITINERARY/gi, '# 🗺️ DAILY ITINERARY');
-            html = html.replace(/🎯\s*RECOMMENDED FLIGHTS/gi, '# 🎯 RECOMMENDED FLIGHTS');
+            html = html.replace(/🎯\s*RECOMMENDED FLIGHTS/gi, '# ✈️ RECOMMENDED FLIGHTS');
             html = html.replace(/✈️\s*RECOMMENDED FLIGHTS/gi, '# ✈️ RECOMMENDED FLIGHTS');
             html = html.replace(/💰\s*PRICE COMPARISON/gi, '# 💰 PRICE COMPARISON');
-            html = html.replace(/⏰\s*BEST TIME TO BOOK/gi, '# ⏰ BEST TIME TO BOOK');
-            html = html.replace(/🎒\s*BAGGAGE INFO/gi, '# 🎒 BAGGAGE INFO');
+            html = html.replace(/⏰\s*BEST TIME TO BOOK/gi, '# 🕓 BEST TIME TO BOOK');
+            html = html.replace(/🎒\s*BAGGAGE INFO/gi, '# 🧳 BAGGAGE INFO');
             html = html.replace(/💡\s*INSIDER TIPS/gi, '# 💡 INSIDER TIPS');
             
             // STEP 1: REMOVE BOOKING LINK SECTIONS
