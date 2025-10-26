@@ -3,6 +3,7 @@ from flask_cors import CORS
 import sys
 import os
 from datetime import datetime
+import traceback
 
 sys.path.append('agents')
 
@@ -75,14 +76,17 @@ def plan_trip():
         })
         
     except Exception as e:
-        import traceback
+        # DETAILED ERROR LOGGING
         print("="*70)
-        print("ERROR IN /api/plan-trip:")
+        print("❌ ERROR IN /api/plan-trip:")
+        print("="*70)
         print(traceback.format_exc())
         print("="*70)
+        
         return jsonify({
             'success': False,
-            'error': str(e)
+            'error': str(e),
+            'traceback': traceback.format_exc()
         }), 500
 
 @app.route('/api/health', methods=['GET'])
