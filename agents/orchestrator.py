@@ -1,6 +1,7 @@
 from travel import TravelAgent
 from weather_agent import WeatherAgent
 from flight_agent import FlightAgent
+from links_agent import LinksAgent
 from datetime import datetime
 
 class OrchestratorAgent:
@@ -11,6 +12,7 @@ class OrchestratorAgent:
         self.travel_agent = TravelAgent()
         self.weather_agent = WeatherAgent()
         self.flight_agent = FlightAgent()
+        self.links_agent = LinksAgent()
         print("✅ All agents initialized!")
         print()
     
@@ -35,9 +37,27 @@ class OrchestratorAgent:
         print("="*70)
         print()
         
-        # AGENT 1: Flight Agent
+        # AGENT 1: Links Agent
         print("┌" + "─"*68 + "┐")
-        print("│ ✈️  AGENT 1: FLIGHT AGENT" + " "*42 + "│")
+        print("│ 🔗 AGENT 1: LINKS AGENT" + " "*44 + "│")
+        print("└" + "─"*68 + "┘")
+        print()
+        print("📡 ORCHESTRATOR → Links Agent: Generating booking links...")
+        
+        booking_links = self.links_agent.format_all_links(
+            origin=origin,
+            destination=destination,
+            departure_date=departure_date,
+            return_date=return_date,
+            passengers=passengers
+        )
+        
+        print("✅ Links Agent → ORCHESTRATOR: Booking links ready!")
+        print()
+        
+        # AGENT 2: Flight Agent
+        print("┌" + "─"*68 + "┐")
+        print("│ ✈️  AGENT 2: FLIGHT AGENT" + " "*42 + "│")
         print("└" + "─"*68 + "┘")
         print()
         print("📡 ORCHESTRATOR → Flight Agent: Searching flights...")
@@ -54,9 +74,9 @@ class OrchestratorAgent:
         print("✅ Flight Agent → ORCHESTRATOR: Flight options received")
         print()
         
-        # AGENT 2: Weather Agent
+        # AGENT 3: Weather Agent
         print("┌" + "─"*68 + "┐")
-        print("│ 🌤️  AGENT 2: WEATHER AGENT" + " "*40 + "│")
+        print("│ 🌤️  AGENT 3: WEATHER AGENT" + " "*40 + "│")
         print("└" + "─"*68 + "┘")
         print()
         print("📡 ORCHESTRATOR → Weather Agent: Requesting forecast...")
@@ -70,9 +90,9 @@ class OrchestratorAgent:
         print("✅ Weather Agent → ORCHESTRATOR: Data received")
         print()
         
-        # AGENT 3: Travel Agent
+        # AGENT 4: Travel Agent
         print("┌" + "─"*68 + "┐")
-        print("│ 🗺️  AGENT 3: TRAVEL AGENT" + " "*42 + "│")
+        print("│ 🗺️  AGENT 4: TRAVEL AGENT" + " "*42 + "│")
         print("└" + "─"*68 + "┘")
         print()
         print("📡 ORCHESTRATOR → Travel Agent: Creating itinerary...")
@@ -100,7 +120,9 @@ class OrchestratorAgent:
 ✈️ YOUR COMPLETE TRAVEL PLAN
 {'='*70}
 
-🛫 FLIGHTS
+{booking_links}
+
+🛫 FLIGHT RECOMMENDATIONS
 {'='*70}
 {flights}
 
@@ -116,6 +138,7 @@ class OrchestratorAgent:
 
 {'='*70}
 ✅ Complete Plan Created by Multi-Agent System:
+   🔗 Links Agent - Direct booking links
    ✈️  Flight Agent - Flight search & recommendations
    🌤️  Weather Agent - Forecast & packing tips
    🗺️  Travel Agent - Daily itinerary planning
