@@ -1,4 +1,3 @@
-
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
@@ -50,6 +49,49 @@ class TravelAgent:
         print()
         
         return itinerary
+    
+    def create_itinerary_with_weather(self, destination, days, budget, interests, weather_summary, start_date=None):
+        """Generate itinerary with pre-fetched weather data from orchestrator"""
+        
+        if not start_date:
+            start_date = datetime.now()
+        
+        print(f"🌍 Travel Agent: Planning {days}-day trip to {destination}...")
+        
+        prompt = f"""
+        Create a {days}-day travel itinerary for {destination}.
+        Budget: ${budget} per person
+        Interests: {interests}
+        Start Date: {start_date.strftime('%Y-%m-%d')}
+        
+        WEATHER FORECAST:
+        {weather_summary}
+        
+        Please provide a day-by-day itinerary that:
+        1. Takes weather conditions into account
+        2. Suggests indoor activities on rainy days
+        3. Optimizes outdoor activities for best weather
+        4. Includes estimated costs for each activity
+        5. Provides restaurant recommendations with price ranges
+        
+        Format each day clearly with morning, afternoon, and evening activities.
+        """
+        
+        print("🤖 Travel Agent: Generating weather-aware itinerary...")
+        
+        response = self.client.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are an expert travel planner who creates detailed, weather-aware itineraries."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=2000,
+            temperature=0.7
+        )
+        
+        print("✅ Travel Agent: Itinerary complete!")
+        
+        return response.choices[0].message.content
 
 # Test the Travel Agent
 if __name__ == "__main__":

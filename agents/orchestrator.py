@@ -1,6 +1,6 @@
-
-from agents.travel import TravelAgent
-from agents.weather_agent import WeatherAgent
+from travel import TravelAgent
+from weather_agent import WeatherAgent
+from flight_agent import FlightAgent
 from datetime import datetime
 
 class OrchestratorAgent:
@@ -10,31 +10,56 @@ class OrchestratorAgent:
         print("🎯 Initializing Orchestrator Agent...")
         self.travel_agent = TravelAgent()
         self.weather_agent = WeatherAgent()
+        self.flight_agent = FlightAgent()
         print("✅ All agents initialized!")
         print()
     
-    def plan_trip(self, destination, days, budget, interests, start_date=None):
-        """Orchestrate the complete trip planning process"""
+    def plan_complete_trip(self, origin, destination, departure_date, return_date, 
+                          days, budget, interests, passengers=1, start_date=None):
+        """Orchestrate complete trip planning with flights"""
         
         if not start_date:
             start_date = datetime.now()
         
         print("="*70)
-        print("🎯 ORCHESTRATOR: Starting Multi-Agent Trip Planning")
+        print("🎯 ORCHESTRATOR: Starting Complete Trip Planning")
         print("="*70)
+        print(f"🛫 Origin: {origin}")
         print(f"📍 Destination: {destination}")
+        print(f"📅 Departure: {departure_date}")
+        print(f"📅 Return: {return_date}")
+        print(f"👥 Travelers: {passengers}")
         print(f"📅 Duration: {days} days")
         print(f"💰 Budget: ${budget} per person")
         print(f"🎯 Interests: {interests}")
         print("="*70)
         print()
         
-        # AGENT 1: Weather Agent
+        # AGENT 1: Flight Agent
         print("┌" + "─"*68 + "┐")
-        print("│ 🌤️  AGENT 1: WEATHER AGENT" + " "*40 + "│")
+        print("│ ✈️  AGENT 1: FLIGHT AGENT" + " "*42 + "│")
         print("└" + "─"*68 + "┘")
         print()
-        print("📡 ORCHESTRATOR → Weather Agent: Requesting forecast data...")
+        print("📡 ORCHESTRATOR → Flight Agent: Searching flights...")
+        
+        flights = self.flight_agent.search_flights(
+            origin=origin,
+            destination=destination,
+            departure_date=departure_date,
+            return_date=return_date,
+            passengers=passengers,
+            preferences=f"Budget: ${budget}, Interests: {interests}"
+        )
+        
+        print("✅ Flight Agent → ORCHESTRATOR: Flight options received")
+        print()
+        
+        # AGENT 2: Weather Agent
+        print("┌" + "─"*68 + "┐")
+        print("│ 🌤️  AGENT 2: WEATHER AGENT" + " "*40 + "│")
+        print("└" + "─"*68 + "┘")
+        print()
+        print("📡 ORCHESTRATOR → Weather Agent: Requesting forecast...")
         
         forecast = self.weather_agent.get_forecast(destination, days)
         recommendations = self.weather_agent.get_weather_recommendations(forecast)
@@ -45,14 +70,12 @@ class OrchestratorAgent:
         print("✅ Weather Agent → ORCHESTRATOR: Data received")
         print()
         
-        # AGENT 2: Travel Agent
+        # AGENT 3: Travel Agent
         print("┌" + "─"*68 + "┐")
-        print("│ ✈️  AGENT 2: TRAVEL AGENT" + " "*42 + "│")
+        print("│ 🗺️  AGENT 3: TRAVEL AGENT" + " "*42 + "│")
         print("└" + "─"*68 + "┘")
         print()
-        print("📡 ORCHESTRATOR → Travel Agent: Requesting itinerary...")
-        print("   Including weather forecast data from Agent 1")
-        print()
+        print("📡 ORCHESTRATOR → Travel Agent: Creating itinerary...")
         
         itinerary = self.travel_agent.create_itinerary_with_weather(
             destination=destination,
@@ -63,63 +86,73 @@ class OrchestratorAgent:
             start_date=start_date
         )
         
-        print()
         print("✅ Travel Agent → ORCHESTRATOR: Itinerary received")
         print()
         
-        # Combine Results
+        # Combine All Results
         print("┌" + "─"*68 + "┐")
-        print("│ 🔄 ORCHESTRATOR: COMBINING RESULTS" + " "*33 + "│")
+        print("│ 🔄 ORCHESTRATOR: COMBINING ALL RESULTS" + " "*29 + "│")
         print("└" + "─"*68 + "┘")
         print()
         
-        full_plan = f"""
+        complete_plan = f"""
+{'='*70}
+✈️ YOUR COMPLETE TRAVEL PLAN
+{'='*70}
+
+🛫 FLIGHTS
+{'='*70}
+{flights}
+
+{'='*70}
+🌤️ WEATHER FORECAST
+{'='*70}
 {weather_summary}
 
 {'='*70}
-
-📋 YOUR COMPLETE TRAVEL PLAN
+🗺️ DAILY ITINERARY
 {'='*70}
-
 {itinerary}
 
 {'='*70}
-✅ Plan created by Multi-Agent System:
-   🌤️  Weather Agent - Forecast & recommendations
-   ✈️  Travel Agent - Itinerary planning
+✅ Complete Plan Created by Multi-Agent System:
+   ✈️  Flight Agent - Flight search & recommendations
+   🌤️  Weather Agent - Forecast & packing tips
+   🗺️  Travel Agent - Daily itinerary planning
    🎯 Orchestrator - Coordination & integration
 {'='*70}
 """
         
-        print("✅ ORCHESTRATOR: Trip planning complete!")
+        print("✅ ORCHESTRATOR: Complete trip planning finished!")
         print()
         
-        return full_plan
+        return complete_plan
 
-# Test the orchestrator
+# Test
 if __name__ == "__main__":
     print()
     print("="*70)
-    print("🧪 TESTING ORCHESTRATOR AGENT")
+    print("🧪 TESTING COMPLETE ORCHESTRATOR WITH FLIGHTS")
     print("="*70)
     print()
     
     try:
-        # Initialize orchestrator (which initializes all agents)
         orchestrator = OrchestratorAgent()
         
-        # Plan a trip
-        plan = orchestrator.plan_trip(
+        plan = orchestrator.plan_complete_trip(
+            origin="San Francisco",
             destination="Barcelona",
-            days=4,
-            budget=1200,
-            interests="architecture, food, beaches, Gaudi"
+            departure_date="2025-12-15",
+            return_date="2025-12-22",
+            days=7,
+            budget=2000,
+            interests="architecture, food, beaches, Gaudi",
+            passengers=2
         )
         
-        # Display final plan
         print()
         print("="*70)
-        print("📄 FINAL MULTI-AGENT TRAVEL PLAN")
+        print("📄 COMPLETE TRAVEL PLAN")
         print("="*70)
         print()
         print(plan)
@@ -130,10 +163,6 @@ if __name__ == "__main__":
         print("="*70)
         
     except Exception as e:
-        print()
-        print("="*70)
-        print("❌ ORCHESTRATOR TEST FAILED!")
-        print("="*70)
-        print(f"Error: {str(e)}")
+        print(f"❌ Error: {e}")
         import traceback
         traceback.print_exc()
