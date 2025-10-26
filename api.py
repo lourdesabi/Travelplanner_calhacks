@@ -75,6 +75,11 @@ def plan_trip():
         })
         
     except Exception as e:
+        import traceback
+        print("="*70)
+        print("ERROR IN /api/plan-trip:")
+        print(traceback.format_exc())
+        print("="*70)
         return jsonify({
             'success': False,
             'error': str(e)
